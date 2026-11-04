@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101014">
+  <title>قسم المزرعة | LootBlox</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:Arial,sans-serif;background:#101014;color:#fff;min-height:100vh}
+    header{padding:20px 7%;display:flex;justify-content:space-between;align-items:center;background:#17171e;border-bottom:1px solid #292933}
+    .logo{font-size:27px;font-weight:900;color:#ff4545;text-decoration:none}.logo span{color:#fff}
+    .back{color:#ddd;text-decoration:none;font-size:14px}.back:hover{color:#ff5555}
+    .intro{text-align:center;padding:48px 18px 25px}.intro h1{font-size:34px;margin-bottom:10px}.intro p{color:#aaa;line-height:1.8}
+    .products{padding:20px 7% 70px;display:flex;justify-content:center}
+    .product{width:min(100%,340px);background:#1b1b23;border:1px solid #30303b;border-radius:18px;overflow:hidden;text-align:center}
+    .product-art{height:230px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;background:radial-gradient(circle,#315b3c,#17251d 70%);color:#e7ffe9}
+    .product-art .symbol{font-size:75px}.product-art small{letter-spacing:4px;color:#a8d9b1;font-weight:bold}
+    .details{padding:22px}.details h2{font-size:23px;margin-bottom:10px}.details p{color:#aaa;font-size:14px;line-height:1.8}
+    .order{border:0;background:#ff3838;color:white;font-size:16px;font-weight:bold;padding:13px 24px;border-radius:10px;margin-top:20px;cursor:pointer;width:100%;transition:.2s}
+    .order:hover{background:#e32626;transform:translateY(-2px)}
+    .modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:18px;z-index:10}
+    .modal.show{display:flex}
+    .modal-box{position:relative;width:min(100%,390px);background:#1c1c25;border:1px solid #393946;border-radius:18px;padding:27px;text-align:center;box-shadow:0 20px 70px #0009;animation:pop .18s ease-out}
+    @keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+    .close{position:absolute;left:14px;top:12px;background:none;border:0;color:#aaa;font-size:27px;cursor:pointer}
+    .modal-box h2{font-size:24px;margin:10px 0}.modal-box>p{color:#aaa;font-size:14px;line-height:1.8;margin-bottom:20px}
+    .contact{display:block;text-decoration:none;color:#fff;padding:14px;border-radius:10px;margin-top:11px;font-weight:bold;transition:.2s}
+    .contact:hover{filter:brightness(1.15);transform:translateY(-2px)}
+    .tiktok{background:#25252e;border:1px solid #555}.discord{background:#5865f2}
+    .hint{font-size:11px!important;color:#777!important;margin:17px 0 0!important}
+    @media(max-width:480px){header{padding:17px 5%}.intro h1{font-size:29px}}
+  </style>
+</head>
+<body>
+  <header>
+    <a class="logo" href="index.html">Loot<span>Blox</span></a>
+    <a class="back" href="index.html">العودة للمتجر ←</a>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>قسم المزرعة 🌾</h1>
+      <p>تصفح المعروضات المتاحة في ماب المزرعة واطلب اللي يعجبك.</p>
+    </section>
+
+    <section class="products">
+      <article class="product">
+        <div class="product-art">
+          <span class="symbol">🪧</span>
+          <small>RARE ITEM</small>
+        </div>
+        <div class="details">
+          <h2>لوحة نادرة</h2>
+          <p>لوحة مميزة في ماب المزرعة. تواصل معنا لمعرفة التفاصيل والتوفر.</p>
+          <button class="order" type="button" id="orderButton">اطلب الآن</button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <div class="modal" id="orderModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+      <button class="close" id="closeModal" type="button" aria-label="إغلاق">×</button>
+      <h2 id="modalTitle">إكمال الطلب</h2>
+      <p>اختر طريقة التواصل لإكمال طلبك بخصوص <strong>اللوحة النادرة</strong>.</p>
+      <a class="contact tiktok" href="https://www.tiktok.com/@.l.alharbi" target="_blank" rel="noopener noreferrer">التواصل عبر TikTok</a>
+      <a class="contact discord" href="https://discord.gg/9KX2adpUX" target="_blank" rel="noopener noreferrer">الدخول إلى Discord</a>
+      <p class="hint">سيتم فتح رابط التواصل في صفحة جديدة.</p>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById('orderModal');
+    const openButton = document.getElementById('orderButton');
+    const closeButton = document.getElementById('closeModal');
+
+    openButton.addEventListener('click', () => {
+      modal.classList.add('show');
+    });
+
+    function closeModal() {
+      modal.classList.remove('show');
+    }
+
+    closeButton.addEventListener('click', closeModal);
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeModal();
+    });
+  </script>
+</body>
+</html>
