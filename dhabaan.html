@@ -10,31 +10,37 @@
       padding: 0;
       box-sizing: border-box;
     }
+
     body {
       font-family: Arial, sans-serif;
       background: #111;
       color: white;
     }
+
     header {
       background: #e10600;
       padding: 18px;
       text-align: center;
     }
+
     header h1 {
       font-size: 28px;
       letter-spacing: 2px;
     }
+
     .title {
       text-align: center;
       padding: 25px 20px 10px;
       font-size: 24px;
     }
+
     .products {
       padding: 20px;
       display: flex;
       justify-content: flex-start;
       gap: 16px;
     }
+
     .card {
       background: #1e1e1e;
       border-radius: 12px;
@@ -42,24 +48,29 @@
       width: 260px;
       text-align: center;
     }
+
     .card .img-box {
       background: #2a2a2a;
       padding: 20px 10px;
     }
+
     .card img {
       width: 100%;
       display: block;
     }
+
     .card h3 {
       padding: 12px 10px 4px;
       font-size: 18px;
     }
+
     .card .price {
       color: #ff4d4d;
       font-size: 20px;
       font-weight: bold;
       padding-bottom: 12px;
     }
+
     .card .buy {
       display: block;
       margin: 0 14px 16px;
@@ -67,11 +78,17 @@
       background: #e10600;
       color: white;
       text-decoration: none;
+      border: none;
       border-radius: 10px;
+      width: calc(100% - 28px);
+      font-size: 16px;
+      cursor: pointer;
     }
+
     .card .buy:active {
       transform: scale(0.96);
     }
+
     .back {
       display: block;
       width: 160px;
@@ -83,9 +100,93 @@
       text-decoration: none;
       border-radius: 10px;
     }
+
+    /* نافذة الطلب */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: #1e1e1e;
+      border: 1px solid #444;
+      border-radius: 18px;
+      padding: 28px 22px;
+      width: 100%;
+      max-width: 360px;
+      text-align: center;
+      animation: appear 0.25s ease;
+      position: relative;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: scale(0.85);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .modal-content h2 {
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .modal-content p {
+      color: #aaa;
+      margin-bottom: 22px;
+      line-height: 1.6;
+    }
+
+    .social-btn {
+      display: block;
+      padding: 14px;
+      margin: 12px 0;
+      border-radius: 10px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .tiktok {
+      background: #252525;
+      border: 1px solid #555;
+    }
+
+    .discord {
+      background: #5865F2;
+    }
+
+    .social-btn:hover {
+      transform: scale(1.03);
+    }
+
+    .close-btn {
+      background: #333;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 15px;
+    }
+
   </style>
 </head>
+
 <body>
+
   <header>
     <h1>LootBlox</h1>
   </header>
@@ -93,16 +194,82 @@
   <h2 class="title">قسم صيد الضبان</h2>
 
   <section class="products">
+
     <div class="card">
       <div class="img-box">
         <img src="plate.svg" alt="لوحة ح ر ب ٧٢٢٢">
       </div>
-      <h3> لوحة تعتبر نادرة</h3>
+
+      <h3>لوحة تعتبر نادرة</h3>
       <p class="price">100 Robox</p>
-      <a class="buy" href="https://wa.me/966500000000">اطلب الحين</a>
+
+      <button class="buy" onclick="openOrder()">
+        اطلب الحين
+      </button>
     </div>
+
   </section>
 
   <a class="back" href="index.html">← رجوع للرئيسية</a>
+
+  <!-- نافذة إتمام الطلب -->
+  <div class="modal" id="orderModal" onclick="closeOutside(event)">
+
+    <div class="modal-content">
+
+      <h2>إتمام الطلب</h2>
+
+      <p>
+        اختر طريقة التواصل لإكمال طلبك
+        <br>
+        LootBlox
+      </p>
+
+      <a
+        class="social-btn tiktok"
+        href="https://www.tiktok.com/@.l.alharbi"
+        target="_blank"
+        rel="noopener noreferrer">
+        TikTok
+      </a>
+
+      <a
+        class="social-btn discord"
+        href="https://discord.gg/9KX2adpUX"
+        target="_blank"
+        rel="noopener noreferrer">
+        Discord
+      </a>
+
+      <button class="close-btn" onclick="closeOrder()">
+        إغلاق
+      </button>
+
+    </div>
+
+  </div>
+
+  <script>
+    function openOrder() {
+      document.getElementById("orderModal").style.display = "flex";
+    }
+
+    function closeOrder() {
+      document.getElementById("orderModal").style.display = "none";
+    }
+
+    function closeOutside(event) {
+      if (event.target.id === "orderModal") {
+        closeOrder();
+      }
+    }
+
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        closeOrder();
+      }
+    });
+  </script>
+
 </body>
-</html
+</html>
